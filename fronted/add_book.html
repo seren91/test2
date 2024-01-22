@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book Form</title>
+    <!-- Add Bootstrap stylesheet link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Library </h1>
+
+        <div class="btn-group-vertical">
+
+            <a href="/frontend/index.html" class="btn btn-primary">Home page</a>
+
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <h1>Add a Book</h1>
+        <form id="addBookForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" class="form-control" id="author" name="author" required>
+            </div>
+
+            <div class="form-group">
+                <label for="year_published">Year Published:</label>
+                <input type="text" class="form-control" id="year_published" name="year_published" required>
+            </div>
+
+
+
+            <!-- Display the maximum loan duration -->
+            <div class="form-group">
+                <label for="book_type">Max Loan Duration:</label>
+                <select name="book_type" id="book_type">
+                    <option value="1">10 days</option>
+                    <option value="2">5 days</option>
+                    <option value="3">2 days</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" onclick="addBook()">Add Book</button>
+
+        </form>
+    </div>
+
+    <!-- Add Bootstrap scripts (jQuery and Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- Add Bootstrap script -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Add Axios library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+        const MY_SERVER = "http://127.0.0.1:5000";
+
+        function addBook() {
+            var name = document.getElementById('name').value;
+            var author = document.getElementById('author').value;
+            var yearPublished = document.getElementById('year_published').value;
+            var bookType = document.getElementById('book_type').value;
+
+            // Clear previous error message
+            var data = {
+                "name": name,
+                "author": author,
+                "year_published": yearPublished,
+                "book_type": bookType
+            };
+
+            async function addBook() {
+                try {
+                    // Use async/await for the POST request
+                    const token = sessionStorage.getItem("access_token");
+                    const response = await axios.post(`${MY_SERVER}/addbook`, data, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        },
+                    });
+
+                    // Handle the response
+                    console.log(response);
+                    Toastify({
+                        text: "Book added successfully",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: "green"
+                        },
+                    }).showToast();
+                    console.log("sdsaddadsadadsadasdd");
+                } catch (error) {
+                    // Handle errors
+                    console.error('Error adding book:', error);
+                }
+            }
+
+            // Call the async function
+            addBook();
+
+        }
+    </script>
+</body>
+
+</html>

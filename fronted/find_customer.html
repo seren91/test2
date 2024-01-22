@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Customer by Name</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+
+
+</head>
+
+<body>
+    <div class="btn-group-vertical">
+
+        <a href="/frontend/index.html" class="btn btn-primary">Home page</a>
+
+    </div>
+
+
+
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Find Customer by Name</h1>
+
+        <form id="findCustomerForm">
+            <div class="form-group">
+                <label for="searchCustomerName">Customer Name:</label>
+                <input type="text" class="form-control" id="searchCustomerName" placeholder="Enter Customer Name"
+                    required>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="findCustomerByName()">Find Customer</button>
+        </form>
+
+        <div id="customerResultSection"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        const MY_SERVER = 'http://127.0.0.1:5000'; // Replace with your actual Flask server URL
+
+        function findCustomerByName() {
+            const customerName = document.getElementById('searchCustomerName').value;
+
+            const token = sessionStorage.getItem("access_token")
+
+            axios.get(`${MY_SERVER}/findcustomer/${customerName}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then(response => displayCustomerResult(response.data))
+                .catch(error => {
+                    Toastify({
+                        text: "customer is not found",
+                        duration: 2500,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: 'red'
+                        },
+                    }).showToast();
+
+                });
+        }
+
+        function displayCustomerResult(customerResult) {
+            const customerResultSection = document.getElementById('customerResultSection');
+            customerResultSection.innerHTML = '';
+
+            if (customerResult.error) {
+                Toastify({
+                    text: "customer is not found",
+                    duration: 5000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: 'red'
+                    },
+                }).showToast();
+            } else {
+                const customer = customerResult.customer;
+                const customerHtml = `
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${customer.name}</h5>
+                    <p class="card-text">City: ${customer.city}</p>
+                    <p class="card-text">Age: ${customer.age}</p>
+                </div>
+            </div>
+        `;
+                customerResultSection.innerHTML = customerHtml;
+            }
+        }
+
+
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

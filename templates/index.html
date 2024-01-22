@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/icon.ico">
+    <link rel="stylesheet" href="../static/style.css">
+
+    
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img src="../static/icon.ico" width="150" class="img-fluid rounded" alt="xxxxxx">
+
+        <a class="navbar-brand" >
+            Books Library
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="float-right mt-2">
+            <a href="/frontend/login.html" class="btn btn-primary" onclick="login()">login</a>
+            <button type="button" class="btn btn-outline-danger" onclick="logout()">Logout</button>
+            <button type="button" class="btn btn-outline-danger" onclick="unitTest()">unit test</button>
+            
+    
+        </div>
+        <br>
+        <footer class="footer mt-5 bg-burgundy text-yellow">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                        <p>&copy; 2024 All rights reserved.</p>
+                    </div>
+    
+                </div>
+            </div>
+        </footer>
+    </nav>
+    <br>
+    
+    </div>
+    
+
+    <div class="container mt-5">
+        
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Display All Books</h5>
+                        
+                        <a href="/frontend/list_book.html" class="btn btn-primary" onclick="displayAllBooks()">View
+                            Books</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Display All Customers</h5>
+                        
+                        <a href="/frontend/customer_list.html" class="btn btn-primary"
+                            onclick="displayAllCustomers()">View Customers</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Display All Loans</h5>
+                        
+                        <a href="/frontend/loans_list.html" class="btn btn-primary" onclick="displayAllLoans()">View
+                            Loans</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Display Late Loans</h5>
+                        
+                        <a href="/frontend/late_loans.html" class="btn btn-warning" onclick="displayLateLoans()">View
+                            Late Loans</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Find Book by Name</h5>
+                        
+                        <a href="/frontend/find_book.html" class="btn btn-info" onclick="findBookByName()">Find Book</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Find Customer by Name</h5>
+                        
+                        <a href="/frontend/find_customer.html" class="btn btn-info" onclick="findCustomerByName()">Find
+                            Customer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add a Book</h5>
+                        
+                        <a href="../../add_book.html" class="btn btn-success">Add Book</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add a Customer</h5>
+                        
+                        <a href="/frontend/add_customer.html" class="btn btn-success">Add Customer</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add a Loan</h5>
+                        
+                        <a href="/frontend/add_loan.html" class="btn btn-success">Add Loan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Return a book</h5>
+                        
+                        <a href="/frontend/Return_book.html" class="btn btn-danger">return book</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Delete Customer</h5>
+                        
+                        <a href="/frontend/delete_customer.html" class="btn btn-danger">Add Customer</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Delete book</h5>
+                        
+                        <a href="/frontend/delete_book.html" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        <br>
+
+
+        
+        
+        
+    </div>
+    </div>
+    <div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- Include your JavaScript functions for library actions -->
+    <script>
+        const MY_SERVER = "http://127.0.0.1:5000";
+
+        const logout = async () => {
+            try {
+                const response = await axios.post(
+                    `${MY_SERVER}/logout`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`
+                        }
+                    }
+                );
+                
+
+                Toastify({
+                    text: "Logout successful. Goodbye!",
+                    duration: 3000
+                }).showToast();
+
+                // Handle successful logout, for example, redirect to login page
+                window.location.href = "/frontend/login.html";
+            } catch (error) {
+                console.error("Logout failed:", error);
+                Toastify({
+                    text: "Logout failed. Please try again.",
+                    duration: 3000
+
+                }).showToast();
+            }
+        };
+
+        function unitTest() {
+            // Set default values for a book
+            var defaultBook = {
+                "name": "Default Book",
+                "author": "Default Author",
+                "year_published": "2022",
+                "book_type": "1"
+            };
+
+            // Use Axios for the POST request
+            const token = sessionStorage.getItem("access_token");
+            axios.post(`${MY_SERVER}/addbook`, defaultBook,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                })
+                .then(response => {
+                    console.log(response);
+                    Toastify({
+                        text: "Unit test successful - Default book added",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: "green"
+                        },
+                    }).showToast();
+
+                    // Now call addBook to display the success message
+                    addBook();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+    </script>
+    
+
+</body>
+
+    
+
+</html>

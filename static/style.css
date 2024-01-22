@@ -1,0 +1,42 @@
+/* Add your custom styles here */
+
+body {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-image: url("tema2.jpg");
+}
+
+.navbar {
+    background-color: #121cdf3c;
+    /* Burgundy */
+}
+
+.navbar-brand {
+    color: #70610e !important;
+    /* Gold Yellow */
+}
+
+.navbar-nav .nav-link {
+    color: #2a064c !important;
+    /* Purple */
+}
+
+.container {
+    color: #f623ba;
+    /* Brown */
+}
+
+
+
+.footer {
+
+    background-color: #f4f4f091;
+    /* Burgundy */
+    color: #0fba265b;
+    /* Gold Yellow */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    right: 0;
+}

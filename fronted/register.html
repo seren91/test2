@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books & Scrolls - Your Public Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/icon.ico">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <br>
+    <!--register -->
+    <div class="container mt-4" style="width: 50%">
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <!-- register -->
+                <div class="card bg-burgundy">
+                    <div class="card-body">
+                        <h5 class="card-title">Register</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="loginUsername" class="form-label">User Name</label>
+                                <input type="text" class="form-control" id="loginUsername" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="login()">Register </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        const MY_SERVER = "http://127.0.0.1:5000";
+        const login = async () => {                              //  Login logic here
+            try {
+                const loginUsername = document.getElementById("username");
+                const loginPassword = document.getElementById("password");
+
+                const response = await axios.post(`${MY_SERVER}/user/login`, {
+                    username: loginUsername.value,
+                    password: loginPassword.value
+                })
+                sessionStorage.setItem("access_token", response.data.access_token)
+
+
+                Toastify({                                      // Display success message
+                    text: "Login successful!", duration: 3000, close: true,
+                    gravity: "top-right", position: "center", backgroundColor: "green", stopOnFocus: true,
+                }).showToast();
+
+            } catch (error) {
+
+                Toastify({                                      // Display error message
+                    text: "Login failed. Please try again.", duration: 4000, close: true, gravity: "top",
+                    position: "left", backgroundColor: "red", stopOnFocus: true,
+                }).showToast();
+                console.error(error);
+            }
+        };

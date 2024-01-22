@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/tema.jpg">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../static/icon.ico">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+    <br>
+    <div class="container" style="width: 50%">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Login</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="role">Role</label>
+                                <select class="form-control" id="role" name="role" required>
+                                    <option value="0">User</option>
+                                    <option value="1">Admin</option>
+                                </select>
+                            </div> -->
+                            <button type="button" class="btn btn-primary btn-block" onclick="login()">Login</button><br>
+                            <a href="add_customer.html"><button type="button"
+                                    class="btn btn-primary btn-block">Register</button></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Toastify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+        const MY_SERVER = "http://127.0.0.1:5000";
+
+        const login = async () => {
+            try {
+                const response = await axios.post(`${MY_SERVER}/login`, {
+                    username: username.value,
+                    password: password.value
+                });
+
+                const accessToken = response.data.access_token;
+                const loggedInUsername = response.data.username;
+                const userRole = response.data.role;
+
+                // Save the access token and role in sessionStorage
+                sessionStorage.setItem("access_token", accessToken);
+                sessionStorage.setItem("role", userRole);
+
+                // Display welcome message with Toastify
+                Toastify({
+                    text: `Hey ${loggedInUsername}! Welcome back as a ${userRole}.`,
+                    duration: 4000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "green"
+                    },
+                }).showToast();
+
+                // Redirect based on the user's role
+                if (userRole === 'admin') {
+                    window.location.href = "/frontend/menu.html";
+                } else {
+                    window.location.href = "/frontend/home_user.html";
+                }
+            } catch (error) {
+                console.error("Login failed:", error);
+                Toastify({
+                    text: "Login failed. Please check your credentials.",
+                    duration: 3000,
+                    backgroundColor: "red"
+                }).showToast();
+            }
+        };
+    </script>
+
+</body>
+
+</html>

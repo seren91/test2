@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Loans</title>
+    <!-- Add Bootstrap stylesheet link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+
+<body>
+    <div class="btn-group-vertical">
+
+        <a href="/frontend/index.html" class="btn btn-primary">Home page</a>
+
+    </div>
+    </div>
+    <div class="container mt-5">
+        <h1>List of Loans</h1>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>Loan Date</th>
+                    <th>Return Date</th>
+                    <th>customer name</th>
+                    <th>Book name</th>
+
+                </tr>
+            </thead>
+            <tbody id="loanListBody">
+                <!-- Loan list will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bootstrap scripts (jQuery and Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- Add Bootstrap script -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Add Axios library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const MY_SERVER = "http://127.0.0.1:5000";
+
+        // Fetch and display the list of loans on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchLoanList();
+        });
+
+        function fetchLoanList() {
+            const token = sessionStorage.getItem("access_token")
+            axios.get(`${MY_SERVER}/listloans`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+
+                .then(response => {
+                    const loanList = response.data.loans;
+                    displayLoanList(loanList);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function displayLoanList(loanList) {
+            const loanListBody = document.getElementById('loanListBody');
+
+            // Clear existing rows
+            loanListBody.innerHTML = "";
+
+            // Populate the table with loan data, customer name, and book name
+            loanList.forEach(loan => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                
+                <td>${loan.loan_date}</td>
+                <td>${loan.return_date}</td>
+                <td>${loan.customer_name}</td>
+                <td>${loan.book_name}</td>
+                
+                
+            `;
+                loanListBody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+
+</html>
